@@ -1,12 +1,12 @@
 import express from 'express';
 import parser from 'body-parser';
-
+import ConnectDB from "./src/database/config"
 const app = express()
 
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
-
+ConnectDB()
 
 app.listen(3000, () => {
     console.log('teste de conexão na porta 3000');

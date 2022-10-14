@@ -1,0 +1,47 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("file:.database/dev.db")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+
+model Usuario {
+  id_usuario     Int      @id @default(autoincrement())
+  nome           String
+  cpf            String   @unique
+  email          String   @unique
+  senha          String
+  dt_nascimento  DateTime
+  tipo_sanguineo String
+  cep            String
+  logradouro     String
+  numero         Int
+  complemento    String
+  bairro         String
+  cidade         String
+  estado         String
+  admin          Boolean
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Instituicao {
+  id_instituicao Int      @id @default(autoincrement())
+  nome String
+  cnpj String @unique
+  telefone String
+  email String @unique
+  cep String
+  numero Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+
+model orgao{
+  id_orgao Int @id @default(autoincrement())
+}
