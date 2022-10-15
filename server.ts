@@ -1,15 +1,21 @@
 import express from 'express';
 import parser from 'body-parser';
-import sqlite3 from 'sqlite3'
+import routes from './src/routes/Routes'
 //import ConnectDB from "database/configMysql"
 //import CreateDB from '@src/config/configSqlite3'
 const app = express()
 
+
+
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
+/** @Note by Alysson
+ * É importante dizer ao express as rotas que serão usadas após dizer que será 
+ * trabalhado com req e res em formato json
+ */
+app.use(routes)
 
-const db = new sqlite3.Database('./dev.db',sqlite3.OPEN_READWRITE);
 
 app.listen(3000, () => {
     console.log('teste de conexão na porta 3000');

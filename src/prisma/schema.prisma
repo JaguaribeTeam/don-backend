@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = env("file:./database/dev.db")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -8,12 +8,12 @@ generator client {
 }
 
 model Usuario {
-  id_usuario     Int       @id @default(autoincrement())
+  id_usuario     String    @id @default(uuid())
   nome           String
   cpf            String    @unique
   email          String    @unique
   senha          String
-  dt_nascimento  DateTime
+  dt_nascimento  String
   tipo_sanguineo String
   cep            String
   logradouro     String
@@ -22,15 +22,15 @@ model Usuario {
   bairro         String
   cidade         String
   estado         String
-  admin          Boolean
+  admin          Boolean   @default(false)
   created_at     DateTime  @default(now())
   updated_at     DateTime  @updatedAt
   doador         Doador?
-  receptor Receptor?
+  receptor       Receptor?
 }
 
-  model Instituicao {
-  id_instituicao    Int                 @id @default(autoincrement())
+model Instituicao {
+  id_instituicao    String              @id @default(uuid())
   nome              String
   cnpj              String              @unique
   telefone          String
@@ -43,51 +43,52 @@ model Usuario {
 }
 
 model Orgao {
-  id_orgao          Int                 @id @default(autoincrement())
+  id_orgao          String              @id @default(uuid())
   nome              String              @unique
   doador_orgao      Doador_Orgao[]
   orgao_instituicao Orgao_Instituicao[]
-  receptor_orgao Receptor_Orgao[]
+  receptor_orgao    Receptor_Orgao[]
 }
 
 model Doador {
-  id_doador        Int            @id @default(autoincrement())
+  id_doador        String         @id @default(uuid())
   usuario          Usuario        @relation(fields: [id_usuario], references: [id_usuario])
-  id_usuario       Int            @unique
+  id_usuario       String         @unique
   pretencao_doacao Boolean
   doador_orgao     Doador_Orgao[]
 }
 
 model Doador_Orgao {
   doador    Doador @relation(fields: [id_doador], references: [id_doador])
-  id_doador Int
+  id_doador String
   orgao     Orgao  @relation(fields: [id_orgao], references: [id_orgao])
-  id_orgao  Int
+  id_orgao  String
 
   @@id([id_doador, id_orgao])
 }
 
 model Orgao_Instituicao {
   orgao          Orgao       @relation(fields: [id_orgao], references: [id_orgao])
-  id_orgao       Int
+  id_orgao       String
   instituicao    Instituicao @relation(fields: [id_instituicao], references: [id_instituicao])
-  id_instituicao Int
+  id_instituicao String
 
   @@id([id_orgao, id_instituicao])
 }
 
 model Receptor {
-  id_receptor Int     @id @default(autoincrement())
-  id_usuario  Int @unique
-  usuario     Usuario @relation(fields: [id_usuario], references: [id_usuario])
+  id_receptor       Int              @id @default(autoincrement())
+  id_usuario        String           @unique
+  usuario           Usuario          @relation(fields: [id_usuario], references: [id_usuario])
   tempo_fila_espera DateTime
-  receptor_orgao Receptor_Orgao[]
+  receptor_orgao    Receptor_Orgao[]
 }
 
 model Receptor_Orgao {
-  orgao          Orgao       @relation(fields: [id_orgao], references: [id_orgao])
-  id_orgao       Int 
-  receptor Receptor @relation(fields: [id_receptor],references: [id_receptor])
+  orgao       Orgao    @relation(fields: [id_orgao], references: [id_orgao])
+  id_orgao    String
+  receptor    Receptor @relation(fields: [id_receptor], references: [id_receptor])
   id_receptor Int
-  @@id([id_orgao,id_receptor])
+
+  @@id([id_orgao, id_receptor])
 }
