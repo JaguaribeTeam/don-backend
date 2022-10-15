@@ -1,19 +1,17 @@
 datasource db {
   provider = "sqlite"
-  url      = env("file:.database/dev.db")
+  url      = env("file:./database/dev.db")
 }
 
 generator client {
   provider = "prisma-client-js"
 }
 
-
-
 model Usuario {
-  id_usuario     Int      @id @default(autoincrement())
+  id_usuario     Int       @id @default(autoincrement())
   nome           String
-  cpf            String   @unique
-  email          String   @unique
+  cpf            String    @unique
+  email          String    @unique
   senha          String
   dt_nascimento  DateTime
   tipo_sanguineo String
@@ -25,23 +23,71 @@ model Usuario {
   cidade         String
   estado         String
   admin          Boolean
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+  doador         Doador?
+  receptor Receptor?
 }
 
-model Instituicao {
-  id_instituicao Int      @id @default(autoincrement())
-  nome String
-  cnpj String @unique
-  telefone String
-  email String @unique
-  cep String
-  numero Int
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  model Instituicao {
+  id_instituicao    Int                 @id @default(autoincrement())
+  nome              String
+  cnpj              String              @unique
+  telefone          String
+  email             String              @unique
+  cep               String
+  numero            Int
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  orgao_instituicao Orgao_Instituicao[]
 }
 
+model Orgao {
+  id_orgao          Int                 @id @default(autoincrement())
+  nome              String              @unique
+  doador_orgao      Doador_Orgao[]
+  orgao_instituicao Orgao_Instituicao[]
+  receptor_orgao Receptor_Orgao[]
+}
 
-model orgao{
-  id_orgao Int @id @default(autoincrement())
+model Doador {
+  id_doador        Int            @id @default(autoincrement())
+  usuario          Usuario        @relation(fields: [id_usuario], references: [id_usuario])
+  id_usuario       Int            @unique
+  pretencao_doacao Boolean
+  doador_orgao     Doador_Orgao[]
+}
+
+model Doador_Orgao {
+  doador    Doador @relation(fields: [id_doador], references: [id_doador])
+  id_doador Int
+  orgao     Orgao  @relation(fields: [id_orgao], references: [id_orgao])
+  id_orgao  Int
+
+  @@id([id_doador, id_orgao])
+}
+
+model Orgao_Instituicao {
+  orgao          Orgao       @relation(fields: [id_orgao], references: [id_orgao])
+  id_orgao       Int
+  instituicao    Instituicao @relation(fields: [id_instituicao], references: [id_instituicao])
+  id_instituicao Int
+
+  @@id([id_orgao, id_instituicao])
+}
+
+model Receptor {
+  id_receptor Int     @id @default(autoincrement())
+  id_usuario  Int @unique
+  usuario     Usuario @relation(fields: [id_usuario], references: [id_usuario])
+  tempo_fila_espera DateTime
+  receptor_orgao Receptor_Orgao[]
+}
+
+model Receptor_Orgao {
+  orgao          Orgao       @relation(fields: [id_orgao], references: [id_orgao])
+  id_orgao       Int 
+  receptor Receptor @relation(fields: [id_receptor],references: [id_receptor])
+  id_receptor Int
+  @@id([id_orgao,id_receptor])
 }

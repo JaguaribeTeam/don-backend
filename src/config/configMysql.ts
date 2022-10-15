@@ -4,7 +4,6 @@ import mysql from 'mysql'
 
 dotenv.config({path:'./.env'})
 
-
 export default function ConnectDB (){
     
 const connection = mysql.createConnection({

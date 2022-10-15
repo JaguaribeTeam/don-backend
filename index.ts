@@ -1,12 +1,15 @@
 import express from 'express';
 import parser from 'body-parser';
-import ConnectDB from "./src/database/config"
+import sqlite3 from 'sqlite3'
+//import ConnectDB from "database/configMysql"
+//import CreateDB from '@src/config/configSqlite3'
 const app = express()
 
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
-ConnectDB()
+
+const db = new sqlite3.Database('./dev.db',sqlite3.OPEN_READWRITE);
 
 app.listen(3000, () => {
     console.log('teste de conexão na porta 3000');
