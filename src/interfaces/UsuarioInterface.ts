@@ -1,3 +1,5 @@
+import { Response } from "express";
+
 export interface UsuarioInterface {
   nome: string;
   cpf: string;
@@ -16,5 +18,7 @@ export interface UsuarioInterface {
 }
 
 export interface PrismaUsuarioController {
-    CreateUsuario: (usuario:UsuarioInterface) => Promise<void>
+    CreateUsuario: (usuario:UsuarioInterface, res:Response) => Promise<void>;
+    FindUsuario: () => Promise<UsuarioInterface[]>;
+    DeleteUsuarioByCpf: (cpf:string) => Promise<UsuarioInterface>;
 }
