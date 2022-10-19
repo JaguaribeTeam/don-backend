@@ -15,7 +15,5 @@ usuarioRouter.post('/api/v1/usuario',async (req,res) => {
      
 })
 
+
 export default usuarioRouter;
-
-
-
