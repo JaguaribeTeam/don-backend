@@ -103,3 +103,4 @@ usuarioRouter.put("/api/v1/usuario/email/:cpf", async (req, res) => {
 });
 
 export default usuarioRouter;
+
