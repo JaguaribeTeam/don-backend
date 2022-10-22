@@ -42,11 +42,23 @@ export interface UpdateUsuarioEndereco {
 }
 
 export interface PrismaUsuarioController {
-    CreateUsuario: (usuario:UsuarioInterface, res:Response) => Promise<UsuarioInterface>;
-    FindAllUsuario: () => Promise<UsuarioInterface[]>;
-    DeleteUsuarioByCpf: (cpf:string) => Promise<UsuarioInterface>;
-    FindUsuarioByCpf: (cpf:string) => Promise<UsuarioInterface|null>;
-    UpdatePasswordUsuario:(pass:string,cpf:string) => Promise<void>;
-    UpdateEnderecoUsuario:(endereco:UpdateUsuarioEndereco, cpf:string) => Promise<UsuarioInterface>;
-    UpdateEmailUsuario:(email:string, cpf:string) => Promise<void>;
+  CreateUsuario: (
+    usuario: UsuarioInterface,
+    res: Response
+  ) => Promise<UsuarioInterface>;
+  FindAllUsuario: () => Promise<UsuarioInterface[]>;
+  DeleteUsuarioByCpf: (cpf: string) => Promise<UsuarioInterface>;
+  FindUsuarioByCpf: (cpf: string) => Promise<UsuarioInterface | null>;
+  UpdatePasswordUsuario: (pass: string, cpf: string) => Promise<void>;
+  UpdateEnderecoUsuario: (
+    endereco: UpdateUsuarioEndereco,
+    cpf: string
+  ) => Promise<UsuarioInterface>;
+  UpdateEmailUsuario: (email: string, cpf: string) => Promise<void>;
+  SetDoadorUsuario: (pretencao: boolean, cpf: string) => Promise<void>;
+  SetReceptorUsuario: (
+    date: Date,
+    cpf: string,
+    id_orgao: string
+  ) => Promise<void>;
 }

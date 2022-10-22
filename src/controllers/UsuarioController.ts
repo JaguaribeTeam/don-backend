@@ -161,4 +161,15 @@ export class UsuarioController implements PrismaUsuarioController {
       select: { nome: true },
     });
   }
+  async SetDoadorUsuario (pretencao: boolean, cpf: string) {
+    await prisma.usuario.update({where:{cpf:cpf},data:{
+      doador:{create:{pretencao_doacao:pretencao}},
+    }})
+  }
+  async SetReceptorUsuario (date: Date, cpf: string, id_orgao:string) {
+    await prisma.usuario.update({where:{cpf:cpf},
+    data:{
+      receptor:{create:{tempo_fila_espera:date,receptor_orgao:{create:{id_orgao:id_orgao}}}}
+    }})
+  }
 }

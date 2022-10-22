@@ -102,5 +102,17 @@ usuarioRouter.put("/api/v1/usuario/email/:cpf", async (req, res) => {
   }
 });
 
-export default usuarioRouter;
+usuarioRouter.put("/api/v1/usuario/:cpf/doador", async (req, res) => {
+  try {
+    const cpf_usuario = req.params.cpf;
+    const pretencao:boolean = req.body.pretencao
+    const newEmail:string = req.body.email;
+    const usuarioController = new UsuarioController();
+    await usuarioController.SetDoadorUsuario(pretencao, cpf_usuario);
+    return res.status(201).send("Você é um novo doador!");
+  } catch (error) {
+    return res.status(404).send("Não foi possível alterar o email!");
+  }
+});
 
+export default usuarioRouter;
