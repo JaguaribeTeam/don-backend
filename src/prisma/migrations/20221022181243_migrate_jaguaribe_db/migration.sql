@@ -29,7 +29,12 @@ CREATE TABLE "Instituicao" (
     "telefone" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "cep" TEXT NOT NULL,
+    "logradouro" TEXT NOT NULL,
     "numero" INTEGER NOT NULL,
+    "complemento" TEXT NOT NULL,
+    "bairro" TEXT NOT NULL,
+    "cidade" TEXT NOT NULL,
+    "estado" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

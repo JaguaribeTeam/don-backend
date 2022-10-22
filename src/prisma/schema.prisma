@@ -35,8 +35,13 @@ model Instituicao {
   cnpj              String              @unique
   telefone          String
   email             String              @unique
-  cep               String
-  numero            Int
+  cep            String
+  logradouro     String
+  numero         Int
+  complemento    String
+  bairro         String
+  cidade         String
+  estado         String
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt
   orgao_instituicao Orgao_Instituicao[]

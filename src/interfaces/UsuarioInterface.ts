@@ -42,7 +42,7 @@ export interface UpdateUsuarioEndereco {
 }
 
 export interface PrismaUsuarioController {
-    CreateUsuario: (usuario:UsuarioInterface, res:Response) => Promise<void>;
+    CreateUsuario: (usuario:UsuarioInterface, res:Response) => Promise<UsuarioInterface>;
     FindAllUsuario: () => Promise<UsuarioInterface[]>;
     DeleteUsuarioByCpf: (cpf:string) => Promise<UsuarioInterface>;
     FindUsuarioByCpf: (cpf:string) => Promise<UsuarioInterface|null>;
