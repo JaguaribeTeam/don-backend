@@ -18,7 +18,7 @@ usuarioRouter.post("/api/v1/usuario", async (req, res) => {
   try {
     const dataUsuario: UsuarioInterface = req.body;
     const usuarioController = new UsuarioController();
-    const usuarioCreated = usuarioController.CreateUsuario(dataUsuario);
+    const usuarioCreated:UsuarioInterface = await usuarioController.CreateUsuario(dataUsuario);
     return res.status(201).json(usuarioCreated);
   } catch (error) {
     return res.status(400).send("Não foi possível criar um novo usuário!");
@@ -103,3 +103,4 @@ usuarioRouter.put("/api/v1/usuario/email/:cpf", async (req, res) => {
 });
 
 export default usuarioRouter;
+

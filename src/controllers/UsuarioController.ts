@@ -16,7 +16,23 @@ import {
 
 export class UsuarioController implements PrismaUsuarioController {
   async CreateUsuario(usuario: UsuarioInterface) {
-    await prisma.usuario.create({ data: usuario });
+   const usuarioNovo:UsuarioInterface = await prisma.usuario.create({ data: usuario, select:{admin: true,
+      bairro: true,
+      cep: true,
+      cidade: true,
+      complemento: true,
+      cpf: true,
+      email: true,
+      estado: true,
+      nome: true,
+      senha: true,
+      logradouro: true,
+      numero: true,
+      tipo_sanguineo: true,
+      dt_nascimento: true,
+
+    } });
+    return usuarioNovo
   }
   async FindAllUsuario(): Promise<UsuarioInterface[]> {
     const usuarios: UsuarioInterface[] = await prisma.usuario.findMany({
