@@ -65,7 +65,7 @@ instituicaoRouter.delete("/api/v1/instituicao/:cnpj", async (req, res) => {
     const cnpjInstituicao:string = req.params.cnpj 
     const instituicaoController = new InstituicaoController();
     const instituicao = await instituicaoController.DeleteInstituicaoByCnpj(cnpjInstituicao);
-    return res.status(201).send("Exclusão feita com sucesso");
+    return res.status(202).send("Exclusão feita com sucesso");
   } catch (error) {
     return res.status(404).send("Instituição não encontrada!");
   }
