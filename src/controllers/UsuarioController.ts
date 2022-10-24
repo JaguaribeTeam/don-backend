@@ -13,10 +13,18 @@ import {
   UpdateUsuarioEndereco,
   UsuarioInterface,
 } from "@src/interfaces/UsuarioInterface";
+import { hash } from 'bcryptjs';
 
 export class UsuarioController implements PrismaUsuarioController {
   async CreateUsuario(usuario: UsuarioInterface) {
-   const usuarioNovo:UsuarioInterface = await prisma.usuario.create({ data: usuario, select:{admin: true,
+    const { senha } = usuario;
+    const senhaEncriptada = await hash(senha, 8);
+    
+    const usuarioNovo:UsuarioInterface = await prisma.usuario.create({ data: {
+      ...usuario,
+      senha: senhaEncriptada,
+      doador:{create:{pretencao_doacao:usuario.pretencao_doacao || false}}
+    }, select:{admin: true,
       bairro: true,
       cep: true,
       cidade: true,
@@ -151,8 +159,7 @@ export class UsuarioController implements PrismaUsuarioController {
         tipo_sanguineo: true,
         dt_nascimento: true,
       },
-    });
-    return usuario;
+    });    return usuario;
   }
   async UpdateEmailUsuario(email: string, cpf: string) {
     await prisma.usuario.update({
@@ -161,12 +168,20 @@ export class UsuarioController implements PrismaUsuarioController {
       select: { nome: true },
     });
   }
-  async SetDoadorUsuario (pretencao: boolean, cpf: string) {
+  async UpdateDoadorUsuario (pretencao: boolean, cpf: string) {
     await prisma.usuario.update({where:{cpf:cpf},data:{
-      doador:{create:{pretencao_doacao:pretencao}},
+      doador:{update:{pretencao_doacao:pretencao}},
+    }})
+    
+  }
+  
+  async UpdateReceptorUsuario (data: string, cpf: string) {
+    await prisma.usuario.update({where:{cpf:cpf},data:{
+      receptor:{update:{tempo_fila_espera:data}},
     }})
   }
-  async SetReceptorUsuario (date: Date, cpf: string, id_orgao:string) {
+
+  async CreateReceptorUsuario (date: string, cpf: string, id_orgao:string) {
     await prisma.usuario.update({where:{cpf:cpf},
     data:{
       receptor:{create:{tempo_fila_espera:date,receptor_orgao:{create:{id_orgao:id_orgao}}}}

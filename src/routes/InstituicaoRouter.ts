@@ -9,7 +9,7 @@
 
 import { Router } from "express";
 import {
-  InstituicaoInterface,
+  InstituicaoInterface, InstituicaoOrgaoCreate,
   
 } from "@src/interfaces/InstituicaoInterface";
 
@@ -70,5 +70,17 @@ instituicaoRouter.delete("/api/v1/instituicao/:cnpj", async (req, res) => {
     return res.status(404).send("Instituição não encontrada!");
   }
 });
+
+instituicaoRouter.post("/api/v1/instituicao_orgao", async (req, res) => {
+  try {
+    const datas: InstituicaoOrgaoCreate = req.body;
+    const instituicaoController = new InstituicaoController();
+    await instituicaoController.LinkInstituicaoToOrgaoController(datas);
+    return res.status(201).send("Nova instituição cadastrada com sucesso!");
+  } catch (error) {
+    return res.status(400).send("Não foi possível realizar o cadastro da instituição!");
+  }
+});
+
 
   export default instituicaoRouter;

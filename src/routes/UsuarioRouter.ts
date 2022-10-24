@@ -12,9 +12,15 @@ import {
   UsuarioInterface,
 } from "@src/interfaces/UsuarioInterface";
 import { UsuarioController } from "@src/controllers/UsuarioController";
+
+import {AuthController} from "@src/controllers/AuthController"
 const usuarioRouter = Router();
 
-usuarioRouter.post("/api/v1/usuario", async (req, res) => {
+
+
+usuarioRouter.post("/api/v1/usuario", (req,res,next) =>{
+  new AuthController().VerifyToken(req,res,next)
+}, async (req, res) => {
   try {
     const dataUsuario: UsuarioInterface = req.body;
     const usuarioController = new UsuarioController();
@@ -24,6 +30,10 @@ usuarioRouter.post("/api/v1/usuario", async (req, res) => {
     return res.status(400).send("Não foi possível criar um novo usuário!");
   }
 });
+
+usuarioRouter.use("/api/v1/usuario", (req,res,next) =>{
+  new AuthController().VerifyToken(req,res,next)
+})
 
 usuarioRouter.get("/api/v1/usuario", async (req, res) => {
   try {
@@ -106,13 +116,26 @@ usuarioRouter.put("/api/v1/usuario/:cpf/doador", async (req, res) => {
   try {
     const cpf_usuario = req.params.cpf;
     const pretencao:boolean = req.body.pretencao
-    const newEmail:string = req.body.email;
     const usuarioController = new UsuarioController();
-    await usuarioController.SetDoadorUsuario(pretencao, cpf_usuario);
+    await usuarioController.UpdateDoadorUsuario(pretencao, cpf_usuario);
     return res.status(201).send("Você é um novo doador!");
   } catch (error) {
     return res.status(404).send("Não foi possível alterar o email!");
   }
 });
+
+usuarioRouter.post("/api/v1/usuario/:cpf/receptor", async (req, res) => {
+  try {
+    const cpf_usuario = req.params.cpf;
+    const data:string = req.body.data
+    const id_orgao:string = req.body.id_orgao
+    const usuarioController = new UsuarioController();
+    await usuarioController.CreateReceptorUsuario(data, cpf_usuario,id_orgao);
+    return res.status(201).send("Você entrou na fila do receptor!");
+  } catch (error) {
+    return res.status(404).send("Não foi possível criar o receptor!");
+  }
+});
+
 
 export default usuarioRouter;

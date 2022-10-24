@@ -93,7 +93,7 @@ model Receptor {
   id_receptor       Int              @id @default(autoincrement())
   id_usuario        String           @unique
   usuario           Usuario          @relation(fields: [id_usuario], references: [id_usuario])
-  tempo_fila_espera DateTime
+  tempo_fila_espera String
   receptor_orgao    Receptor_Orgao[]
   created_at        DateTime         @default(now())
   updated_at        DateTime         @updatedAt

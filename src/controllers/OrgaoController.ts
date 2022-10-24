@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { prisma } from '@src/prisma/prisma'
-import { OrgaoInterface, PrismaOrgaoController } from '../interfaces/OrgaoInterface'
+import { OrgaoDoador, OrgaoInterface, PrismaOrgaoController } from '../interfaces/OrgaoInterface'
 
 export class OrgaoController implements PrismaOrgaoController {
     
@@ -114,6 +114,19 @@ export class OrgaoController implements PrismaOrgaoController {
         } catch (err) {
             return res.status(400).json({ message: 'Erro ao tentar deletar um órgão' });
         }
+    }
+    LinkOrgaoToDoadorController = async (req: Request, res: Response) => {
+        try {
+            const datas:OrgaoDoador = req.body
+            await prisma.doador_Orgao.create({data:{
+                id_doador:datas.id_doador, 
+                id_orgao:datas.id_orgao
+        }})
+        return res.status(201).json({ message: 'Link feito com sucesso!' })
+    } catch (error) {
+        return res.status(400).json({ message: 'Erro ao tentar efetuar o link' });
+        }
+        
     }
 
 }
