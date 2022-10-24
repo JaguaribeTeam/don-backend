@@ -36,7 +36,12 @@ model Instituicao {
   telefone          String
   email             String              @unique
   cep               String
+  logradouro        String
   numero            Int
+  complemento       String
+  bairro            String
+  cidade            String
+  estado            String
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt
   orgao_instituicao Orgao_Instituicao[]
@@ -48,6 +53,8 @@ model Orgao {
   doador_orgao      Doador_Orgao[]
   orgao_instituicao Orgao_Instituicao[]
   receptor_orgao    Receptor_Orgao[]
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
 }
 
 model Doador {
@@ -56,13 +63,17 @@ model Doador {
   id_usuario       String         @unique
   pretencao_doacao Boolean
   doador_orgao     Doador_Orgao[]
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
 }
 
 model Doador_Orgao {
-  doador    Doador @relation(fields: [id_doador], references: [id_doador])
-  id_doador String
-  orgao     Orgao  @relation(fields: [id_orgao], references: [id_orgao])
-  id_orgao  String
+  doador     Doador   @relation(fields: [id_doador], references: [id_doador])
+  id_doador  String
+  orgao      Orgao    @relation(fields: [id_orgao], references: [id_orgao])
+  id_orgao   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@id([id_doador, id_orgao])
 }
@@ -72,6 +83,8 @@ model Orgao_Instituicao {
   id_orgao       String
   instituicao    Instituicao @relation(fields: [id_instituicao], references: [id_instituicao])
   id_instituicao String
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
 
   @@id([id_orgao, id_instituicao])
 }
@@ -80,8 +93,10 @@ model Receptor {
   id_receptor       Int              @id @default(autoincrement())
   id_usuario        String           @unique
   usuario           Usuario          @relation(fields: [id_usuario], references: [id_usuario])
-  tempo_fila_espera DateTime
+  tempo_fila_espera String
   receptor_orgao    Receptor_Orgao[]
+  created_at        DateTime         @default(now())
+  updated_at        DateTime         @updatedAt
 }
 
 model Receptor_Orgao {
@@ -89,6 +104,8 @@ model Receptor_Orgao {
   id_orgao    String
   receptor    Receptor @relation(fields: [id_receptor], references: [id_receptor])
   id_receptor Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@id([id_orgao, id_receptor])
 }
