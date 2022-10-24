@@ -9,6 +9,11 @@ export interface OrgaoDoador {
     id_doador:string
 }
 
+export interface OrgaoReceptor {
+    id_orgao:string
+    id_receptor:number
+}
+
 export interface PrismaOrgaoController {
     FindAllOrgao: (req: Request, res: Response) => Promise<Response>
     CreateOrgao: (req: Request, res: Response) => Promise<Response>
@@ -16,4 +21,5 @@ export interface PrismaOrgaoController {
     DeleteOrgao: (req: Request, res: Response) => Promise<Response>
     FindOrgaoById: (req: Request, res: Response) => Promise<Response>
     LinkOrgaoToDoadorController: (req: Request, res: Response) => Promise<Response>
+    LinkOrgaoToReceptorController: (req: Request, res: Response) => Promise<Response>
 }

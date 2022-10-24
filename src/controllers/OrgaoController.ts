@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { prisma } from '@src/prisma/prisma'
-import { OrgaoDoador, OrgaoInterface, PrismaOrgaoController } from '../interfaces/OrgaoInterface'
+import { OrgaoDoador, OrgaoInterface, OrgaoReceptor, PrismaOrgaoController } from '../interfaces/OrgaoInterface'
 
 export class OrgaoController implements PrismaOrgaoController {
     
@@ -128,5 +128,17 @@ export class OrgaoController implements PrismaOrgaoController {
         }
         
     }
-
+    LinkOrgaoToReceptorController = async (req: Request, res: Response) => {
+        try {
+            const datas:OrgaoReceptor = req.body
+            await prisma.receptor_Orgao.create({data:{
+                id_receptor:datas.id_receptor, 
+                id_orgao:datas.id_orgao
+        }})
+        return res.status(201).json({ message: 'Link feito com sucesso!' })
+    } catch (error) {
+        return res.status(400).json({ message: 'Erro ao tentar efetuar o link' });
+        }
+        
+    }
 }
