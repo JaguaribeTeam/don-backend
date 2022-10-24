@@ -13,10 +13,16 @@ export interface InstituicaoInterface {
 
 }
 
+export interface InstituicaoOrgaoCreate{
+  id_instituicao:string
+  id_orgao:string
+}
+
 export interface PrismaInstituicaoController {
   CreateInstituicao: (instituicao: InstituicaoInterface) => Promise<InstituicaoInterface>;
   FindAllInstituicoes: () => Promise<InstituicaoInterface[]>;
   FindInstituicaoByCnpj: (cnpj: string) => Promise<InstituicaoInterface | null>;
   UpdateInstituicao: (instituicao: InstituicaoInterface) => Promise<void>;
   DeleteInstituicaoByCnpj: (cnpj: string) => Promise<void>;
+  LinkInstituicaoToOrgaoController: (datas:InstituicaoOrgaoCreate) => Promise<void>
 }

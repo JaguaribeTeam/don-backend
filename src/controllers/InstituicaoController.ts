@@ -12,6 +12,7 @@ import { prisma } from "@src/prisma/prisma";
 import {
   PrismaInstituicaoController,
   InstituicaoInterface,
+  InstituicaoOrgaoCreate,
 } from "@src/interfaces/InstituicaoInterface";
 export class InstituicaoController implements PrismaInstituicaoController {
   async CreateInstituicao(instituicao: InstituicaoInterface) {
@@ -80,5 +81,11 @@ export class InstituicaoController implements PrismaInstituicaoController {
       },
       data: instituicao,
     });
+  }
+  async LinkInstituicaoToOrgaoController (datas:InstituicaoOrgaoCreate){
+    await prisma.orgao_Instituicao.create({data:{
+      id_instituicao:datas.id_instituicao,
+      id_orgao:datas.id_orgao
+    }})
   }
 }
