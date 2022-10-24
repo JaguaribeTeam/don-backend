@@ -10,6 +10,7 @@ import { Router } from "express";
 import {
   UpdateUsuarioEndereco,
   UsuarioInterface,
+  UsuarioSemSenhaInterface,
 } from "@src/interfaces/UsuarioInterface";
 import { UsuarioController } from "@src/controllers/UsuarioController";
 
@@ -24,7 +25,7 @@ usuarioRouter.post("/api/v1/usuario", (req,res,next) =>{
   try {
     const dataUsuario: UsuarioInterface = req.body;
     const usuarioController = new UsuarioController();
-    const usuarioCreated:UsuarioInterface = await usuarioController.CreateUsuario(dataUsuario);
+    const usuarioCreated:UsuarioSemSenhaInterface = await usuarioController.CreateUsuario(dataUsuario);
     return res.status(201).json(usuarioCreated);
   } catch (error) {
     return res.status(400).send("Não foi possível criar um novo usuário!");
@@ -66,7 +67,7 @@ usuarioRouter.delete("/api/v1/usuario/:cpf", async (req, res) => {
     const usuarioDeleted = await usuarioController.DeleteUsuarioByCpf(
       cpf_usuario
     );
-    return res.status(201).json(usuarioDeleted);
+    return res.status(201).json("Usuário deletado com sucesso!");
   } catch (error) {
     return res.status(404).send("Não foi possível remover o usuário");
   }

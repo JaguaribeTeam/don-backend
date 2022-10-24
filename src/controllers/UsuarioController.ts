@@ -12,6 +12,7 @@ import {
   PrismaUsuarioController,
   UpdateUsuarioEndereco,
   UsuarioInterface,
+  UsuarioSemSenhaInterface,
 } from "@src/interfaces/UsuarioInterface";
 import { hash } from 'bcryptjs';
 
@@ -20,7 +21,7 @@ export class UsuarioController implements PrismaUsuarioController {
     const { senha } = usuario;
     const senhaEncriptada = await hash(senha, 8);
     
-    const usuarioNovo:UsuarioInterface = await prisma.usuario.create({ data: {
+    const usuarioNovo:UsuarioSemSenhaInterface = await prisma.usuario.create({ data: {
       ...usuario,
       senha: senhaEncriptada,
       doador:{create:{pretencao_doacao:usuario.pretencao_doacao || false}}
@@ -33,7 +34,6 @@ export class UsuarioController implements PrismaUsuarioController {
       email: true,
       estado: true,
       nome: true,
-      senha: true,
       logradouro: true,
       numero: true,
       tipo_sanguineo: true,
@@ -42,8 +42,8 @@ export class UsuarioController implements PrismaUsuarioController {
     } });
     return usuarioNovo
   }
-  async FindAllUsuario(): Promise<UsuarioInterface[]> {
-    const usuarios: UsuarioInterface[] = await prisma.usuario.findMany({
+  async FindAllUsuario(): Promise<UsuarioSemSenhaInterface[]> {
+    const usuarios: UsuarioSemSenhaInterface[] = await prisma.usuario.findMany({
       select: {
         admin: true,
         bairro: true,
@@ -54,7 +54,6 @@ export class UsuarioController implements PrismaUsuarioController {
         email: true,
         estado: true,
         nome: true,
-        senha: true,
         logradouro: true,
         numero: true,
         tipo_sanguineo: true,
@@ -79,7 +78,6 @@ export class UsuarioController implements PrismaUsuarioController {
         email: true,
         estado: true,
         nome: true,
-        senha: true,
         logradouro: true,
         numero: true,
         tipo_sanguineo: true,
@@ -96,7 +94,7 @@ export class UsuarioController implements PrismaUsuarioController {
    * melhor visualização das funcionalidades do controller.
    */
   async DeleteUsuarioByCpf(cpf: string) {
-    const deleteOrNot: UsuarioInterface = await prisma.usuario.delete({
+    const deleteOrNot: UsuarioSemSenhaInterface = await prisma.usuario.delete({
       where: {
         cpf: cpf,
       },
@@ -110,7 +108,6 @@ export class UsuarioController implements PrismaUsuarioController {
         email: true,
         estado: true,
         nome: true,
-        senha: true,
         logradouro: true,
         numero: true,
         tipo_sanguineo: true,
