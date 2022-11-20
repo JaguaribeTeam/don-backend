@@ -4,7 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register server.ts",
+    "prisma:migrate":"npx prisma migrate dev --schema=./src/prisma/schema.prisma",
+    "prisma:generate":"npx prisma generate --schema=./src/prisma/schema.prisma",
+    "prisma:deploy":"npx prisma migrate deploy",
+    "project:start":"npx tsc node dist/server.js"
   },
   "dependencies": {
     "@prisma/client": "^4.4.0",

@@ -11,10 +11,10 @@ import {
   UpdateUsuarioEndereco,
   UsuarioInterface,
   UsuarioSemSenhaInterface,
-} from "@src/interfaces/UsuarioInterface";
-import { UsuarioController } from "@src/controllers/UsuarioController";
+} from "../interfaces/UsuarioInterface";
+import { UsuarioController } from "../controllers/UsuarioController";
 
-import {AuthController} from "@src/controllers/AuthController"
+import {AuthController} from "../controllers/AuthController"
 const usuarioRouter = Router();
 
 

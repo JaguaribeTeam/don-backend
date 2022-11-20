@@ -1,5 +1,5 @@
 import Chance from 'chance'
-import {prisma} from '@src/prisma/prisma'
+import {prisma} from './prisma/prisma'
 
 const chanceObj = new Chance()
 const re = 'A-|B-|AB-|O-|A+|B+|O+|AB+';

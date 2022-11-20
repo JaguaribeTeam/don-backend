@@ -1,11 +1,11 @@
-import { prisma } from "@src/prisma/prisma";
+import { prisma } from "../prisma/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 import {
   PrismaAuthController,
   payloadUsuario,
-} from "@src/interfaces/AuthInterface";
+} from "../interfaces/AuthInterface";
 import { NextFunction, Request, Response } from "express";
 
 export class AuthController implements PrismaAuthController {
