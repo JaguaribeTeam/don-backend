@@ -8,7 +8,7 @@
     "prisma:migrate":"npx prisma migrate dev --schema=./src/prisma/schema.prisma",
     "prisma:generate":"npx prisma generate --schema=./src/prisma/schema.prisma",
     "prisma:deploy":"npx prisma migrate deploy",
-    "project:start":"npx tsc node dist/server.js"
+    "project:start":"npx tsc && node dist/server.js"
   },
   "dependencies": {
     "@prisma/client": "^4.4.0",
