@@ -1,13 +1,13 @@
 import express from 'express';
 import parser from 'body-parser';
-import routes from '@src/routes/Routes'
+import routes from '@src/routes/Routes';
+import cors from 'cors';
 import {generateUsuario} from '@src/generateData'
 //import ConnectDB from "database/configMysql"
 //import CreateDB from '@src/config/configSqlite3'
 const app = express()
 
-
-
+app.use(cors());
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
