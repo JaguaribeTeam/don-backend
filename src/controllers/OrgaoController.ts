@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { prisma } from '@src/prisma/prisma'
+import { prisma } from '../prisma/prisma'
 import { OrgaoDoador, OrgaoInterface, OrgaoReceptor, PrismaOrgaoController } from '../interfaces/OrgaoInterface'
 
 export class OrgaoController implements PrismaOrgaoController {

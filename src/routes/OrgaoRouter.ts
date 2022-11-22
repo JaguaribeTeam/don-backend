@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { OrgaoController } from '@src/controllers/OrgaoController';
+import { OrgaoController } from '../controllers/OrgaoController';
 
 const orgaoRouter = Router();
 const orgaoController = new OrgaoController();

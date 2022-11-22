@@ -8,12 +8,12 @@
  * dá mais segurança e veracidade para quem está modificando os dados
  */
 
-import { prisma } from "@src/prisma/prisma";
+import { prisma } from "../prisma/prisma";
 import {
   PrismaInstituicaoController,
   InstituicaoInterface,
   InstituicaoOrgaoCreate,
-} from "@src/interfaces/InstituicaoInterface";
+} from "../interfaces/InstituicaoInterface";
 export class InstituicaoController implements PrismaInstituicaoController {
   async CreateInstituicao(instituicao: InstituicaoInterface) {
     const instituicaoNova = await prisma.instituicao.create({

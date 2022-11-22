@@ -1,7 +1,7 @@
 import express from 'express';
 import parser from 'body-parser';
-import routes from '@src/routes/Routes'
-import {generateUsuario} from '@src/generateData'
+import routes from './src/routes/Routes'
+//import {generateUsuario} from '@src/generateData'
 //import ConnectDB from "database/configMysql"
 //import CreateDB from '@src/config/configSqlite3'
 const app = express()
@@ -19,7 +19,7 @@ app.use(routes)
 
 //generateUsuario()
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('teste de conexão na porta 3000');
 })
 

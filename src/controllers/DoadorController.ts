@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { prisma } from '@src/prisma/prisma'
-import {PrismaDoadorController, CreateDoador,FindDoador} from '@src/interfaces/DoadorInterface';
+import { prisma } from '../prisma/prisma'
+import {PrismaDoadorController, CreateDoador,FindDoador} from '../interfaces/DoadorInterface';
 
 export class DoadorController implements PrismaDoadorController {
     

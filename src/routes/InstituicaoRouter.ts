@@ -11,9 +11,9 @@ import { Router } from "express";
 import {
   InstituicaoInterface, InstituicaoOrgaoCreate,
   
-} from "@src/interfaces/InstituicaoInterface";
+} from "../interfaces/InstituicaoInterface";
 
-import { InstituicaoController } from "@src/controllers/InstituicaoController";
+import { InstituicaoController } from "../controllers/InstituicaoController";
 const instituicaoRouter = Router();
 
 instituicaoRouter.post("/api/v1/instituicao", async (req, res) => {

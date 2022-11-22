@@ -7,6 +7,6 @@
  * dá mais segurança e veracidade para quem está modificando os dados
  */
 
-export class UsuarioUserCase {
-
+export class UsuarioUseCase {
+    
 }
