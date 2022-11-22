@@ -7,7 +7,7 @@ import cors from 'cors';
 //import CreateDB from '@src/config/configSqlite3'
 const app = express()
 
-app.use(cors);
+app.use(cors());
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
