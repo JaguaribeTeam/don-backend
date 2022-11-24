@@ -6,6 +6,8 @@ import cors from 'cors';
 //import ConnectDB from "database/configMysql"
 //import CreateDB from '@src/config/configSqlite3'
 const app = express()
+import dotenv from 'dotenv'
+dotenv.config()
 
 app.use(cors());
 app.use(parser.json());

@@ -1,7 +1,8 @@
 import { prisma } from "../prisma/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-
+import dotenv from 'dotenv'
+dotenv.config()
 import {
   PrismaAuthController,
   payloadUsuario,
