@@ -27,6 +27,8 @@ model Usuario {
   updated_at     DateTime  @updatedAt
   doador         Doador?
   receptor       Receptor?
+  is_doador      Boolean   @default(false)
+  is_receptor    Boolean   @default(false)
 }
 
 model Instituicao {

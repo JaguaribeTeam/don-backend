@@ -81,5 +81,5 @@ export interface PrismaUsuarioController {
     date: string,
     cpf: string,
     id_orgao: string
-  ) => Promise<void>;
+  ) => Promise<void>;  
 }
